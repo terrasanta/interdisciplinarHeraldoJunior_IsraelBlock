@@ -5,19 +5,19 @@ package interdisciplinar.mvc.view.admin;
 
 import java.util.List;
 
-import interdisciplinar.mvc.controller.UsuarioController;
+import interdisciplinar.mvc.controller.UserController;
 import interdisciplinar.mvc.util.Leitor;
-import interdisciplinar.mvc.vo.Admin;
-import interdisciplinar.mvc.vo.Estabelecimento;
-import interdisciplinar.mvc.vo.Publico;
-import interdisciplinar.mvc.vo.Usuario;
+import interdisciplinar.mvc.vo.UserAdmin;
+import interdisciplinar.mvc.vo.UserEstabelecimento;
+import interdisciplinar.mvc.vo.UserPublic;
+import interdisciplinar.mvc.vo.User;
 
 /**
  * @author Israel Block
  * @version 1.0.1
  * @since 15 de out de 2017
  */
-public class UsuarioView {
+public class AdminUserView {
 
 	private final int MENU_INCLUIR = 1;
 	private final int MENU_ATUALIZAR = 2;
@@ -27,13 +27,13 @@ public class UsuarioView {
 	private final int MENU_PESQUISA_NOME = 6;
 	private final int MENU_SAIR = 0;
 	
-	private UsuarioController uc;
+	private UserController uc;
 	
 	/**
 	 * 
 	 */
-	public UsuarioView() {
-		uc = new UsuarioController();
+	public AdminUserView() {
+		uc = new UserController();
 	}
 	public void menu() {
 		int opc = -1;
@@ -96,13 +96,13 @@ public class UsuarioView {
 		System.out.println("Digite 2 para adicionar um Administrador de Estabelecimento");
 		tipo = Leitor.readInt("Digite 3 para adicionar um usuário do sistema: ");
 		
-		Usuario user = null;
+		User user = null;
 		if(tipo == 1) {
-			user = new Admin(nome, email, senha, sexo);
+			user = new UserAdmin(nome, email, senha, sexo);
 		}else if(tipo == 2) {
-			user = new Estabelecimento(nome, email, senha, sexo);
+			user = new UserEstabelecimento(nome, email, senha, sexo);
 		}else if(tipo == 3) {
-			user = new Publico(nome, email, senha, sexo);
+			user = new UserPublic(nome, email, senha, sexo);
 		}else {
 			System.out.println("Tipo de usuário inválido. Operação cancelada.");
 		}
@@ -117,21 +117,21 @@ public class UsuarioView {
 	public void atualizar() {
 		titulo("Atualizar");
 		
-		List<Usuario> lu = uc.listarUsuarios();
+		List<User> lu = uc.listarUsuarios();
 
 		if (lu == null) {
 			System.out.println("Erro");
 		} else if (lu.isEmpty()) {
 			System.out.println("Lista vazia");
 		} else {
-			for (Usuario usuario : lu) {
+			for (User usuario : lu) {
 				int tipo;
 				String nomeTipo;
-				if (usuario instanceof Publico) {
+				if (usuario instanceof UserPublic) {
 					tipo = 3;
 					nomeTipo = "Usuário Final";
 				}
-				else if (usuario instanceof Estabelecimento) {
+				else if (usuario instanceof UserEstabelecimento) {
 					tipo = 2;
 					nomeTipo = "Administrador de Estabelecimento";
 				}else {
@@ -153,7 +153,7 @@ public class UsuarioView {
 		}
 		int entraId = Leitor.readInt("Digite o ID do usuário que deseja atualizar: ");
 		
-		Usuario usuario = uc.pesquisar(entraId);
+		User usuario = uc.pesquisar(entraId);
 		
 		String nome;
 		String email;
@@ -184,21 +184,21 @@ public class UsuarioView {
 	public void excluir() {
 		titulo("Excluir");
 		
-		List<Usuario> lu = uc.listarUsuarios();
+		List<User> lu = uc.listarUsuarios();
 
 		if (lu == null) {
 			System.out.println("Erro");
 		} else if (lu.isEmpty()) {
 			System.out.println("Lista vazia");
 		} else {
-			for (Usuario usuario : lu) {
+			for (User usuario : lu) {
 				int tipo;
 				String nomeTipo;
-				if (usuario instanceof Publico) {
+				if (usuario instanceof UserPublic) {
 					tipo = 3;
 					nomeTipo = "Usuário Final";
 				}
-				else if (usuario instanceof Estabelecimento) {
+				else if (usuario instanceof UserEstabelecimento) {
 					tipo = 2;
 					nomeTipo = "Administrador de Estabelecimento";
 				}else {
@@ -221,18 +221,18 @@ public class UsuarioView {
 		
 		int id = Leitor.readInt("Digite o ID do usuário que você deseja excluir: ");
 		
-		Usuario usuario = uc.pesquisar(id);
+		User usuario = uc.pesquisar(id);
 		
 		if(usuario == null) {
 			System.out.println("Nenhum usuário encontrado com este ID.");
 		}else {
 			int tipo;
 			String nomeTipo;
-			if (usuario instanceof Publico) {
+			if (usuario instanceof UserPublic) {
 				tipo = 3;
 				nomeTipo = "Usuário Final";
 			}
-			else if (usuario instanceof Estabelecimento) {
+			else if (usuario instanceof UserEstabelecimento) {
 				tipo = 2;
 				nomeTipo = "Administrador de Estabelecimento";
 			}else {
@@ -272,21 +272,21 @@ public class UsuarioView {
 	public void listar() {
 		titulo("Listar");
 		
-		List<Usuario> lu = uc.listarUsuarios();
+		List<User> lu = uc.listarUsuarios();
 
 		if (lu == null) {
 			System.out.println("Erro");
 		} else if (lu.isEmpty()) {
 			System.out.println("Lista vazia");
 		} else {
-			for (Usuario usuario : lu) {
+			for (User usuario : lu) {
 				int tipo;
 				String nomeTipo;
-				if (usuario instanceof Publico) {
+				if (usuario instanceof UserPublic) {
 					tipo = 3;
 					nomeTipo = "Usuário Final";
 				}
-				else if (usuario instanceof Estabelecimento) {
+				else if (usuario instanceof UserEstabelecimento) {
 					tipo = 2;
 					nomeTipo = "Administrador de Estabelecimento";
 				}else {
@@ -312,18 +312,18 @@ public class UsuarioView {
 		
 		int id = Leitor.readInt("Digite o ID que deseja pesquisar: ");
 		
-		Usuario usuario = uc.pesquisar(id);
+		User usuario = uc.pesquisar(id);
 		
 		if(usuario == null) {
 			System.out.println("Sua pesquisa não retornou nenhum resultado.");
 		}else {
 			int tipo;
 			String nomeTipo;
-			if (usuario instanceof Publico) {
+			if (usuario instanceof UserPublic) {
 				tipo = 3;
 				nomeTipo = "Usuário Final";
 			}
-			else if (usuario instanceof Estabelecimento) {
+			else if (usuario instanceof UserEstabelecimento) {
 				tipo = 2;
 				nomeTipo = "Administrador de Estabelecimento";
 			}else {
@@ -348,21 +348,21 @@ public class UsuarioView {
 		
 		String nome = Leitor.readString("Digite o nome que deseja pesquisar: ");
 		
-		List<Usuario> lu = uc.pesquisar(nome);
+		List<User> lu = uc.pesquisar(nome);
 		
 		if (lu == null) {
 			System.out.println("Erro");
 		} else if (lu.isEmpty()) {
 			System.out.println("Lista vazia");
 		} else {
-			for (Usuario usuario : lu) {
+			for (User usuario : lu) {
 				int tipo;
 				String nomeTipo;
-				if (usuario instanceof Publico) {
+				if (usuario instanceof UserPublic) {
 					tipo = 3;
 					nomeTipo = "Usuário Final";
 				}
-				else if (usuario instanceof Estabelecimento) {
+				else if (usuario instanceof UserEstabelecimento) {
 					tipo = 2;
 					nomeTipo = "Administrador de Estabelecimento";
 				}else {

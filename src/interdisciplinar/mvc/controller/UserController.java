@@ -5,43 +5,43 @@ package interdisciplinar.mvc.controller;
 
 import java.util.List;
 
-import interdisciplinar.mvc.model.UsuarioModel;
-import interdisciplinar.mvc.vo.Usuario;
+import interdisciplinar.mvc.model.UserModel;
+import interdisciplinar.mvc.vo.User;
 
 /**
  * @author Israel Block
  * @version 1.0.1
  * @since 15 de out de 2017
  */
-public class UsuarioController {
+public class UserController {
 
 	/**
 	 * 
 	 */
-	private UsuarioModel usuarioModel;
+	private UserModel usuarioModel;
 	
 	/**
 	 * 
 	 */
-	public UsuarioController() {
-		usuarioModel = new UsuarioModel();
+	public UserController() {
+		usuarioModel = new UserModel();
 	}
-	public boolean incluir(Usuario usuario) {
+	public boolean incluir(User usuario) {
 		return usuarioModel.incluir(usuario);
 	}
-	public boolean atualizar(Usuario usuario) {
+	public boolean atualizar(User usuario) {
 		return usuarioModel.atualizar(usuario);
 	}
 	public boolean excluir(int idUsuario) {
 		return usuarioModel.excluir(idUsuario);
 	}
-	public List<Usuario> listarUsuarios(){
+	public List<User> listarUsuarios(){
 		return usuarioModel.listarUsuarios();
 	}
-	public Usuario pesquisar(Integer idUsuario) {
+	public User pesquisar(Integer idUsuario) {
 		return usuarioModel.pesquisar(idUsuario);
 	}
-	public List<Usuario> pesquisar(String nomeUsuario){
+	public List<User> pesquisar(String nomeUsuario){
 		return usuarioModel.pesquisar(nomeUsuario);
 	}
 

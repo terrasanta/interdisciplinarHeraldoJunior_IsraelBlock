@@ -3,7 +3,7 @@
  */
 package interdisciplinar.mvc.main;
 
-import interdisciplinar.mvc.view.admin.UsuarioView;
+import interdisciplinar.mvc.view.estabelecimento.EstabelecimentoView;
 
 /**
  * @author Israel Block
@@ -13,8 +13,11 @@ import interdisciplinar.mvc.view.admin.UsuarioView;
 public class Main {
 
 	public static void main(String[] args) {
-		UsuarioView uv = new UsuarioView();
-		uv.menu();	
+		//AdminUserView uv = new AdminUserView();
+		//uv.menu();	
+		
+		EstabelecimentoView ev = new EstabelecimentoView();
+		ev.listar();
 	}
 
 }

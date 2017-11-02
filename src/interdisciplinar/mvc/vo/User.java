@@ -12,7 +12,7 @@ import java.util.Date;
  * @version 1.0.1
  * @since 16 de out de 2017
  */
-public class Usuario {
+public class User {
 
 	/**
 	 * armazena o valor do id do usuario, seja da aplicação ou do banco de dados 
@@ -43,7 +43,7 @@ public class Usuario {
 	 * Método construtor vazio.
 	 * Apenas instancia o usuário, possibilitando o acesso aos métodos Getters and Setters.
 	 */
-	public Usuario() {
+	public User() {
 		
 	}
 	
@@ -55,7 +55,7 @@ public class Usuario {
 	 * @param senha - String
 	 * @param sexo - Char
 	 */
-	public Usuario(String nomeUsuario, String emailUsuario, String senha, char sexo) {
+	public User(String nomeUsuario, String emailUsuario, String senha, char sexo) {
 		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setLenient(false);
 		Date dataAtual = new Date();
