@@ -118,12 +118,14 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 				
 				
 				listaEstabelecimento.add(e);
+				System.out.println("gerou a lista "+e);
 			}
 			
 			return listaEstabelecimento;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("caiu no catch");
 			return null;
 		}finally {
 			try {

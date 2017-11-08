@@ -1,6 +1,7 @@
 package interdisciplinar.mvc.view.estabelecimento;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,18 +13,13 @@ import interdisciplinar.mvc.vo.Estabelecimento;
 
 @ManagedBean(name="estabelecimentoBean")
 @SessionScoped
-public class EstabelecimentoBean implements Serializable {
 
+public class EstabelecimentoBean implements Serializable {
 	private int idEstabelecimento;
-	
 	private String nomeEstabelecimento;
-	
 	private String tipoEstabelecimento;
-	
 	private Date dataCadastro;
-	
 	private EstabelecimentoController estabelecimentoController;
-	
 	private List<Estabelecimento> listaEstabelecimento;
 	
 	/**
@@ -32,12 +28,16 @@ public class EstabelecimentoBean implements Serializable {
 	private static final long serialVersionUID = -6234649360685548187L;
 
 	public EstabelecimentoBean() {
-		listaEstabelecimento = estabelecimentoController.listarEstabelecimento();
-		
 		setIdEstabelecimento(0);
 		setNomeEstabelecimento("");
 		setTipoEstabelecimento("");
 		setDataCadastro(null);
+		listaEstabelecimento = new ArrayList<Estabelecimento>();
+	}
+	/*@PostConstruct*/
+	public void init() {
+		System.out.println("Chamou a função carregaLista");
+		setListaEstabelecimento(estabelecimentoController.listarEstabelecimento());
 	}
 	/**
 	 * @return the idEstabelecimento
