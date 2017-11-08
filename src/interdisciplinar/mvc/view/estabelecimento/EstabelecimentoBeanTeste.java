@@ -4,17 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import interdisciplinar.mvc.controller.EstabelecimentoController;
 import interdisciplinar.mvc.vo.Estabelecimento;
 
-@ManagedBean(name="estabelecimentoBean")
-@SessionScoped
-public class EstabelecimentoBean implements Serializable {
+/**
+ * Session Bean implementation class EstabelecimentoBeanTeste
+ */
+@Stateless(mappedName = "estabelecimentoBeanTeste")
+@TransactionManagement(TransactionManagementType.BEAN)
+@LocalBean
+public class EstabelecimentoBeanTeste implements Serializable  {
 
-	private int idEstabelecimento;
+private int idEstabelecimento;
 	
 	private String nomeEstabelecimento;
 	
@@ -31,7 +39,7 @@ public class EstabelecimentoBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -6234649360685548187L;
 
-	public EstabelecimentoBean() {
+	public EstabelecimentoBeanTeste() {
 		listaEstabelecimento = estabelecimentoController.listarEstabelecimento();
 		
 		setIdEstabelecimento(0);
@@ -46,6 +54,31 @@ public class EstabelecimentoBean implements Serializable {
 		return idEstabelecimento;
 	}
 
+	public String pesquisar() {
+		//Funcionario funcionario = null;
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		
+		estabelecimentoController = new EstabelecimentoController();
+		
+		if(nomeEstabelecimento.equals("")) {
+			listaEstabelecimento = estabelecimentoController.listarEstabelecimento();
+			if(listaEstabelecimento == null) {
+				setNomeEstabelecimento("");
+				contexto.addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas ao retornar lista", null) );
+				return "/admin_estabelecimento/index";
+			}
+			
+		} else {
+			listaEstabelecimento = estabelecimentoController.pesquisar(nomeEstabelecimento);
+			if(listaEstabelecimento == null) {
+				setNomeEstabelecimento("");
+				contexto.addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas ao retornar lista", null) );
+				return "/admin_estabelecimento/index";
+			}
+		}
+		return "/admin_estabelecimento/index";
+		
+	}
 	/**
 	 * @param idEstabelecimento the idEstabelecimento to set
 	 */
@@ -131,5 +164,6 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	
+
 
 }

@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,22 +11,27 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Garçom Online</title>
 </h:head>
-<h:body>
+<body>
 	<h:form>
-		<h:dataTable value="#{estabelecimentoBean.listaEstabelecimento}" var="estabelecimento"
-			styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-even-row">
+		
+		<h:outputText value="Nome:" />
+		<h:inputText id="nome" value="#{estabelecimentoBeanTeste.nomeEstabelecimento}"
+			size="50"
+			validatorMessage="Nome deve ter no máximo 50 caracteres">
+			<f:validateLength minimum="0" maximum="50" />
+		</h:inputText>
+		
+		&nbsp;									
+     	<h:message for="nome" infoClass="info" errorClass="error"/>
+		
+		<br />
 
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{estabelecimento.nomeEstabelecimento}" />
-			</h:column>
+		
+		<h:messages globalOnly="true" errorcClass="error">
+		</h:messages>		
+		
+		<h:commandButton action="#{estabelecimentoBeanTeste.pesquisar()}" value="Incluir" />
 
-			<h:column>
-				<f:facet name="header">Tipo</f:facet>
-				<h:outputText value="#{estabelecimento.tipoestabelecimento}" />
-			</h:column>
-		</h:dataTable>
 	</h:form>
-</h:body>
+</body>
 </html>
