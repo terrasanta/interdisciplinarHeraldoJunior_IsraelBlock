@@ -32,8 +32,8 @@ public class EstabelecimentoController {
 		return estabelecimentoModel.excluir(idEstabelecimento);
 	}
 
-	public Estabelecimento pesquisar(Integer idEstabelecimento) {
-		return estabelecimentoModel.pesquisar(idEstabelecimento);
+	public Estabelecimento buscar(int idEstabelecimento) {
+		return estabelecimentoModel.buscar(idEstabelecimento);
 	}
 
 	public List<Estabelecimento> pesquisar(String nomeEstabelecimento) {

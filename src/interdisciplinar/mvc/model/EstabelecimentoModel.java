@@ -9,11 +9,7 @@ public class EstabelecimentoModel {
 	private EstabelecimentoDAO estabelecimentoDAO;
 
 	public EstabelecimentoModel() {
-		try {
-			estabelecimentoDAO = new EstabelecimentoDAO();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		estabelecimentoDAO = new EstabelecimentoDAO();
 	}
 	
 	public boolean incluir(Estabelecimento estabelecimento) {
@@ -32,8 +28,8 @@ public class EstabelecimentoModel {
 		return estabelecimentoDAO.excluir(idEstabelecimento);
 	}
 
-	public Estabelecimento pesquisar(Integer idEstabelecimento) {
-		return estabelecimentoDAO.pesquisar(idEstabelecimento);
+	public Estabelecimento buscar(int idEstabelecimento) {
+		return estabelecimentoDAO.buscar(idEstabelecimento);
 	}
 
 	public List<Estabelecimento> pesquisar(String nomeEstabelecimento) {

@@ -22,7 +22,7 @@ public interface IEstabelecimentoDAO {
 
 	public Boolean excluir(int idEstabelecimento);
 	
-	public Estabelecimento pesquisar(Integer idEstabelecimento);
+	public Estabelecimento buscar(int idEstabelecimento);
 
 	public List<Estabelecimento> pesquisar(String nomeEstabelecimento);
 	

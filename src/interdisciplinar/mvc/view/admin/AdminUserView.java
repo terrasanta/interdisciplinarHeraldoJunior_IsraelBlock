@@ -7,10 +7,10 @@ import java.util.List;
 
 import interdisciplinar.mvc.controller.UserController;
 import interdisciplinar.mvc.util.Leitor;
+import interdisciplinar.mvc.vo.User;
 import interdisciplinar.mvc.vo.UserAdmin;
 import interdisciplinar.mvc.vo.UserEstabelecimento;
 import interdisciplinar.mvc.vo.UserPublic;
-import interdisciplinar.mvc.vo.User;
 
 /**
  * @author Israel Block

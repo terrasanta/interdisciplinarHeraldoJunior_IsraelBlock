@@ -3,7 +3,7 @@
  */
 package interdisciplinar.mvc.main;
 
-import interdisciplinar.mvc.view.estabelecimento.EstabelecimentoView;
+import interdisciplinar.mvc.model.EstabelecimentoDAO;
 
 /**
  * @author Israel Block
@@ -16,8 +16,11 @@ public class Main {
 		//AdminUserView uv = new AdminUserView();
 		//uv.menu();	
 		
-		EstabelecimentoView ev = new EstabelecimentoView();
-		ev.listar();
+		/*EstabelecimentoView ev = new EstabelecimentoView();
+		ev.listar();*/
+		
+		EstabelecimentoDAO ed = new EstabelecimentoDAO();
+		ed.listarEstabelecimento();
 	}
 
 }

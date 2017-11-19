@@ -18,30 +18,47 @@ public class Conn {
 	ResultSet resultSet;
 	Connection connection;
 	
-	public Conn() throws ClassNotFoundException {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+	public Conn(){
+		try {
+			DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Deu ruim na conexão");
+		}
 	}
 	
 	public Connection connect() {
 		try {
 			connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+			System.out.println("Conectou");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Não conectou "+e.getErrorCode());
 			return null;
 		}
 		return connection;
 	}
 
-	public void disconnect() throws SQLException {
+	public void disconnect() {
 
 		if (preparedStatement != null) {
-			preparedStatement.close();
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				//e.printStackTrace();
+				System.out.println("Não fechou "+e.getErrorCode());
+			}
 		}
 
-		if (connection != null && !connection.isClosed()) {
-			connection.close();
-		} else {
-			System.out.println("CONEXAO NAO ESTAVA FECHADA");
+		try {
+			if (connection != null && !connection.isClosed()) {
+				connection.close();
+			} else {
+				System.out.println(connection.getClass());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("catch do connection close "+e.getErrorCode());
 		}
 
 	}

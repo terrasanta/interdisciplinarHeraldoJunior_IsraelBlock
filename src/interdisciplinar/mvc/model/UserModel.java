@@ -19,12 +19,7 @@ public class UserModel {
 	 * 
 	 */
 	public UserModel() {
-		try {
-			usuarioDAO = new UserDAO();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+		usuarioDAO = new UserDAO();
 	}
 	public boolean incluir(User usuario) {
 		return usuarioDAO.incluir(usuario);

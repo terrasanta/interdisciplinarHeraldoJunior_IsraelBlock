@@ -11,23 +11,15 @@ import java.util.Date;
  * @since 30 de out de 2017
  */
 public class Estabelecimento {
-	
 	private int idEstabelecimento;
-	
 	private String nomeEstabelecimento;
-	
 	private int idUserEstabelecimento;
-	
 	private Date dataCadastro;
-	
 	private String endereco;
-	
 	private String telefone;
-	
 	private String dadosComplementares;
-	
 	private int tipoEstabelecimento;
-
+	private String nomeTipoEstabelecimento;
 	/**
 	 * 
 	 */
@@ -155,6 +147,18 @@ public class Estabelecimento {
 	 */
 	public void setTipoEstabelecimento(int tipoEstabelecimento) {
 		this.tipoEstabelecimento = tipoEstabelecimento;
+	}
+	/**
+	 * @return the nomeTipoEstabelecimento
+	 */
+	public String getNomeTipoEstabelecimento() {
+		return nomeTipoEstabelecimento;
+	}
+	/**
+	 * @param nomeTipoEstabelecimento the nomeTipoEstabelecimento to set
+	 */
+	public void setNomeTipoEstabelecimento(String nomeTipoEstabelecimento) {
+		this.nomeTipoEstabelecimento = nomeTipoEstabelecimento;
 	}
 
 }

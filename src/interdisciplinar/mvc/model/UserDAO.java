@@ -12,10 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 import interdisciplinar.mvc.util.Conn;
+import interdisciplinar.mvc.vo.User;
 import interdisciplinar.mvc.vo.UserAdmin;
 import interdisciplinar.mvc.vo.UserEstabelecimento;
 import interdisciplinar.mvc.vo.UserPublic;
-import interdisciplinar.mvc.vo.User;
 
 /**
  * @author Israel Block
@@ -41,11 +41,11 @@ public class UserDAO implements IUserDAO {
 	 */
 	private Connection connection = null;
 
-	public UserDAO() throws ClassNotFoundException {
+	public UserDAO(){
 		conn = new Conn();
 	}
 	
-		/* (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see interdisciplinar.mvc.model.IUsuarioDAO#incluir(interdisciplinar.mvc.vo.Usuario)
 	 */
 	@Override
@@ -82,11 +82,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return false;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 		
 	}
@@ -117,11 +113,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return false;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 	}
 
@@ -148,11 +140,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return false;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 	}
 	
@@ -218,11 +206,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return null;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 	}
 
@@ -286,11 +270,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return null;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 		if(listaUsuario != null & listaUsuario.size() > 0) {
 			return listaUsuario.get(0);
@@ -360,11 +340,7 @@ public class UserDAO implements IUserDAO {
 			e.printStackTrace();
 			return null;
 		}finally {
-			try {
-				conn.disconnect();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			conn.disconnect();
 		}
 	}
 

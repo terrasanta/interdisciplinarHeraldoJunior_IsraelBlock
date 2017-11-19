@@ -8,12 +8,12 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 9.x Runtime">
 		<attributes>
-			<attribute name="owner.project.facets" value="jst.web;jst.jsf"/>
+			<attribute name="owner.project.facets" value="jst.web;jst.jsf;jst.jaxrs"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/israe/Downloads/reader.jar"/>
-	<classpathentry kind="lib" path="C:/Users/israe/Downloads/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/israe/Downloads/Oracle Driver.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
