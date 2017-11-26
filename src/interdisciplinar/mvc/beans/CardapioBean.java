@@ -26,6 +26,7 @@ public class CardapioBean implements Serializable {
 	private static final long serialVersionUID = 4686539065924605104L;
 	
 	private int idCardapio;
+	private int idProduto;
 	private int idEstabelecimento;
 	private String nomeProduto;
 	private String descricaoProduto;
@@ -46,7 +47,7 @@ public class CardapioBean implements Serializable {
 	public List<Cardapio> carregaCardapio(int idEstabelecimento){
 		return listaCardapio = cardapioController.listarCardapio(idEstabelecimento);
 	}
-
+	
 	/**
 	 * @return the idCardapio
 	 */
@@ -187,6 +188,18 @@ public class CardapioBean implements Serializable {
 		this.cardapio = cardapio;
 	}
 	
+	/**
+	 * @return the idProduto
+	 */
+	public int getIdProduto() {
+		return idProduto;
+	}
+	/**
+	 * @param idProduto the idProduto to set
+	 */
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
 	/**
 	 * @return the serialversionuid
 	 */

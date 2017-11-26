@@ -6,6 +6,7 @@ package interdisciplinar.mvc.model;
 import java.util.List;
 
 import interdisciplinar.mvc.vo.Carrinho;
+import interdisciplinar.mvc.vo.Itens;
 
 /**
  * @author Israel Block
@@ -13,12 +14,14 @@ import interdisciplinar.mvc.vo.Carrinho;
  * @since 25 de nov de 2017
  */
 public interface ICarrinhoDAO {
-	public boolean incluir(Carrinho carrinho);
+	public Boolean incluir(Itens item);
 	
-	public Boolean atualizar(Carrinho cardapio);
+	public Boolean atualizar(Itens item);
 	
 	public Boolean excluir(int idCarrinho);
 	
-	public List<Carrinho> listarCarrinho(int idUsuario, int idEstabelecimento);
+	public List<Itens> listarCarrinho(int idUsuario);
+	
+	public Boolean finalizar(Carrinho carrinho);
 	
 }

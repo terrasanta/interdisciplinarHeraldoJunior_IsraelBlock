@@ -216,17 +216,19 @@ public class UserDAO implements IUserDAO {
 	 */
 	@Override
 	public User pesquisar(Integer idUsuario) {
-		
+		System.out.println("Entrou na função");
 		List<User> listaUsuario = new ArrayList<User>();
 		
 		connection = conn.connect();
 		try {
+			System.out.println("Entrou no try");
 			preparedStatement = connection.prepareStatement("select nome_usuario, email_usuario, senha, data_cadastro, tipo, sexo from usuario where id_usuario = ?");
 			preparedStatement.setInt(1, idUsuario);
 			
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
+				System.out.println("Entrou no while");
 				User u;
 				
 				String nome = resultSet.getString("nome_usuario");
@@ -264,15 +266,19 @@ public class UserDAO implements IUserDAO {
 				}
 				
 				listaUsuario.add(u);
+				System.out.println("Add user");
 			}
 			
 		} catch (SQLException e) {
+			System.out.println("Caiu no catch listaUsuario");
 			e.printStackTrace();
 			return null;
 		}finally {
+			System.out.println("DESCONECTOU");
 			conn.disconnect();
 		}
 		if(listaUsuario != null & listaUsuario.size() > 0) {
+			System.out.println("Retorno de usuario "+listaUsuario.get(0).getNomeUsuario());
 			return listaUsuario.get(0);
 		}else {
 			return null;

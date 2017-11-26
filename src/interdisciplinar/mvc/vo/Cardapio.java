@@ -11,6 +11,7 @@ package interdisciplinar.mvc.vo;
 public class Cardapio {
 
 	private int idCardapio;
+	private int idProduto;
 	private int idEstabelecimento;
 	private String nomeProduto;
 	private String descricaoProduto;
@@ -93,6 +94,18 @@ public class Cardapio {
 	 */
 	public void setTipoProduto(int tipoProduto) {
 		this.tipoProduto = tipoProduto;
+	}
+	/**
+	 * @return the idProduto
+	 */
+	public int getIdProduto() {
+		return idProduto;
+	}
+	/**
+	 * @param idProduto the idProduto to set
+	 */
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
 	}
 	
 	

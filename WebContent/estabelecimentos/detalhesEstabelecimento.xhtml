@@ -34,7 +34,7 @@
 						</h:outputText>
 					</h:column>
 					<h:column>
-						<h:commandLink action="#{estabelecimentoBean.incluiCarrinho(cardapio.idProduto, estabelecimentoBean.idEstabelecimento)}" value="Incluir no carrinho" />
+						<h:commandLink action="#{carrinhoBean.incluiItem(cardapio.idEstabelecimento, cardapio.idCardapio)}" value="Incluir no carrinho" />
 					</h:column>
 
 				</h:dataTable>
@@ -44,7 +44,19 @@
 		</ui:define>
 		<ui:define name="sidebar">
 			<h:form>
-				
+				<h:dataTable value="#{carrinhoBean.retornaList}" var="carrinho" styleClass="table">
+					<h:column>
+						<f:facet name="header">Produto</f:facet>
+						<h:outputText value="#{carrinho.idProduto}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Quantidade</f:facet>
+						<h:outputText value="#{carrinho.qtdeproduto}" />
+					</h:column>
+				</h:dataTable>
+				Total: <h:outputText value="#{carrinhoBean.retornaTotal()}">
+					<f:convertNumber type="currency" currencySymbol="R$" />
+				</h:outputText>
 			</h:form>
 		</ui:define>
 	</ui:composition>

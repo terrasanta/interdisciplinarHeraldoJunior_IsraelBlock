@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import interdisciplinar.mvc.controller.UserController;
+import interdisciplinar.mvc.vo.User;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
@@ -128,6 +129,10 @@ public class UserBean implements Serializable{
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public User retornaUser(int idUser) {
+		return userController.pesquisar(idUser);
 	}
 
 }

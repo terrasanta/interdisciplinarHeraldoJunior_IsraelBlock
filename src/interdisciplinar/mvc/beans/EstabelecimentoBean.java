@@ -71,10 +71,6 @@ public class EstabelecimentoBean implements Serializable {
 		return "/estabelecimentos/detalhesEstabelecimento";
 	}
 
-	public void incluiCarrinho(int idProduto, int idEstabelecimento) {
-		
-	}
-
 	/**
 	 * @return the idEstabelecimento
 	 */

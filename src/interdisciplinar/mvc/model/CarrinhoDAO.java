@@ -9,6 +9,7 @@ import java.util.List;
 
 import interdisciplinar.mvc.util.Conn;
 import interdisciplinar.mvc.vo.Carrinho;
+import interdisciplinar.mvc.vo.Itens;
 
 public class CarrinhoDAO implements ICarrinhoDAO {
 
@@ -29,12 +30,50 @@ public class CarrinhoDAO implements ICarrinhoDAO {
 	 */
 	private Connection connection = null;
 	
+	private List<Itens> listaItens;
+	
 	public CarrinhoDAO() {
 		conn = new Conn();
+		listaItens = new ArrayList<Itens>();
 	}
 
 	@Override
-	public boolean incluir(Carrinho carrinho) {
+	public Boolean incluir(Itens item) {
+		listaItens.add(item);
+		System.out.println("Incluiu item");
+		return true;
+	}
+
+	@Override
+	public Boolean atualizar(Itens item) {
+		int idEstab = item.getIdEstabelecimento();
+		int idProd = item.getIdProduto();
+		int qtde = item.getQtdeproduto();
+		
+		for (Itens itens : listaItens) {
+			if ((itens.getIdEstabelecimento() == idEstab) && (itens.getIdProduto() == idProd)) {
+				itens.setQtdeproduto(qtde);
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean excluir(int idCarrinho) {
+		return null;
+	}
+	
+	@Override
+	public List<Itens> listarCarrinho(int idUsuario){
+		
+		List<Itens> listaCarrinho = this.getListaItens();
+		
+		return listaCarrinho;
+		
+	}
+	
+	@Override
+	public Boolean finalizar(Carrinho carrinho) {
 		try {
 			connection = conn.connect();
 			preparedStatement = connection.prepareStatement("insert into carrinho"
@@ -61,40 +100,48 @@ public class CarrinhoDAO implements ICarrinhoDAO {
 		}
 	}
 
-	@Override
-	public Boolean atualizar(Carrinho carrinho) {
-		return null;
+	/**
+	 * @return the listaItens
+	 */
+	public List<Itens> getListaItens() {
+		return listaItens;
 	}
 
-	@Override
-	public Boolean excluir(int idCarrinho) {
-		return null;
+	/**
+	 * @param listaItens the listaItens to set
+	 */
+	public void setListaItens(List<Itens> listaItens) {
+		this.listaItens = listaItens;
 	}
-	
-	@Override
-	public List<Carrinho> listarCarrinho(int idUsuario, int idEstabelecimento){
-		List <Carrinho> listaCarrinho = new ArrayList<Carrinho>();
-		
+
+	public Double retornaValorItem(int idItem, int idEstabelecimento) {
 		try {
+			System.out.println("Enttrou na função");
 			connection = conn.connect();
-			
-			preparedStatement = connection.prepareStatement("select idcarrinho, idusuario, idestabelecimento, valortotal");
-			
-			preparedStatement.setInt(1, idEstabelecimento);
+			String sql = "select valor_produto from cardapio_estabelecimento where id_cardapio_estab = "+idItem+" and id_estab = "+idEstabelecimento;
+			System.out.println(sql);
+			preparedStatement = connection.prepareStatement("select valor_produto from cardapio_estabelecimento where id_cardapio_estab = ? and id_estab = ?");
+			preparedStatement.setInt(1, idItem);
+			preparedStatement.setInt(2, idEstabelecimento);
 			
 			resultSet = preparedStatement.executeQuery();
-			
+			Double valor = null;
 			while(resultSet.next()) {
-				
+				valor = resultSet.getDouble("valor_produto");
 			}
+			System.out.println("Depois do While");
+			System.out.println(valor);
+			if (preparedStatement != null)
+				preparedStatement.close();
 			
-			return listaCarrinho;
+			return valor;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("caiu no catch");
 			return null;
+		}finally {
+			conn.disconnect();
 		}
 	}
-
+	
 }

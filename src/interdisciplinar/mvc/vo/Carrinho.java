@@ -15,12 +15,6 @@ public class Carrinho {
 	private int idEstabelecimento;
 	private Double valorTotal;
 	
-	private int idItem;
-	private int idProduto;
-	private int qtdeproduto; 
-	
-	
-
 	/**
 	 * 
 	 */
@@ -82,48 +76,4 @@ public class Carrinho {
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
-	/**
-	 * @return the idItem
-	 */
-	public int getIdItem() {
-		return idItem;
-	}
-
-	/**
-	 * @param idItem the idItem to set
-	 */
-	public void setIdItem(int idItem) {
-		this.idItem = idItem;
-	}
-
-	/**
-	 * @return the idProduto
-	 */
-	public int getIdProduto() {
-		return idProduto;
-	}
-
-	/**
-	 * @param idProduto the idProduto to set
-	 */
-	public void setIdProduto(int idProduto) {
-		this.idProduto = idProduto;
-	}
-
-	/**
-	 * @return the qtdeproduto
-	 */
-	public int getQtdeproduto() {
-		return qtdeproduto;
-	}
-
-	/**
-	 * @param qtdeproduto the qtdeproduto to set
-	 */
-	public void setQtdeproduto(int qtdeproduto) {
-		this.qtdeproduto = qtdeproduto;
-	}
-
-	
 }
