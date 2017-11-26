@@ -34,12 +34,17 @@
 						</h:outputText>
 					</h:column>
 					<h:column>
-						<h:commandLink action="#{cardapioBean.incluiCarrinho()}" value="Incluir no carrinho" />
+						<h:commandLink action="#{estabelecimentoBean.incluiCarrinho(cardapio.idProduto, estabelecimentoBean.idEstabelecimento)}" value="Incluir no carrinho" />
 					</h:column>
 
 				</h:dataTable>
 
 				<h:commandLink action="/index.xhtml" value="voltar" />
+			</h:form>
+		</ui:define>
+		<ui:define name="sidebar">
+			<h:form>
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

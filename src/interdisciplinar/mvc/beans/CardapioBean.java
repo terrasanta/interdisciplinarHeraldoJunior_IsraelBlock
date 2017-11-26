@@ -46,11 +46,6 @@ public class CardapioBean implements Serializable {
 	public List<Cardapio> carregaCardapio(int idEstabelecimento){
 		return listaCardapio = cardapioController.listarCardapio(idEstabelecimento);
 	}
-	
-	public String incluiCarrinho() {
-		
-		return "/estabelecimentos/detalhesEstabelecimento";
-	}
 
 	/**
 	 * @return the idCardapio

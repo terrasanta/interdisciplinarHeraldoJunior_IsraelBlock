@@ -12,7 +12,7 @@ import interdisciplinar.mvc.controller.EstabelecimentoController;
 import interdisciplinar.mvc.vo.Cardapio;
 import interdisciplinar.mvc.vo.Estabelecimento;
 
-@ManagedBean(name="estabelecimentoBean")
+@ManagedBean(name = "estabelecimentoBean")
 @SessionScoped
 
 public class EstabelecimentoBean implements Serializable {
@@ -20,10 +20,10 @@ public class EstabelecimentoBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6234649360685548187L;
-	
+
 	@ManagedProperty("#{cardapioBean}")
 	private CardapioBean cardapioBean;
-	
+
 	private int idEstabelecimento;
 	private String nomeEstabelecimento;
 	private String tipoEstabelecimento;
@@ -42,15 +42,15 @@ public class EstabelecimentoBean implements Serializable {
 		setDataCadastro(null);
 		listaEstabelecimento = estabelecimentoController.listarEstabelecimento();
 	}
-	
+
 	public String carregaEstabelecimento(int idEstabelecimento) {
 		Estabelecimento estabelecimento = new Estabelecimento();
 		System.out.println("passou aqui");
-		if(idEstabelecimento == 0) {
+		if (idEstabelecimento == 0) {
 			System.out.println("Não trouxe nada");
 			return "/index";
-		}else {
-			System.out.println("Dentro do Else - ID estabelecimento = "+idEstabelecimento);
+		} else {
+			System.out.println("Dentro do Else - ID estabelecimento = " + idEstabelecimento);
 			estabelecimento = estabelecimentoController.buscar(idEstabelecimento);
 			setIdEstabelecimento(idEstabelecimento);
 			setNomeEstabelecimento(estabelecimento.getNomeEstabelecimento());
@@ -67,10 +67,14 @@ public class EstabelecimentoBean implements Serializable {
 			System.out.println("DEPOIS DO FOR");
 		}
 		System.out.println("indo pra detalhes");
-		
+
 		return "/estabelecimentos/detalhesEstabelecimento";
 	}
-	
+
+	public void incluiCarrinho(int idProduto, int idEstabelecimento) {
+		
+	}
+
 	/**
 	 * @return the idEstabelecimento
 	 */
@@ -79,7 +83,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param idEstabelecimento the idEstabelecimento to set
+	 * @param idEstabelecimento
+	 *            the idEstabelecimento to set
 	 */
 	public void setIdEstabelecimento(int idEstabelecimento) {
 		this.idEstabelecimento = idEstabelecimento;
@@ -93,7 +98,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param nomeEstabelecimento the nomeEstabelecimento to set
+	 * @param nomeEstabelecimento
+	 *            the nomeEstabelecimento to set
 	 */
 	public void setNomeEstabelecimento(String nomeEstabelecimento) {
 		this.nomeEstabelecimento = nomeEstabelecimento;
@@ -107,7 +113,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param tipoEstabelecimento the tipoEstabelecimento to set
+	 * @param tipoEstabelecimento
+	 *            the tipoEstabelecimento to set
 	 */
 	public void setTipoEstabelecimento(String tipoEstabelecimento) {
 		this.tipoEstabelecimento = tipoEstabelecimento;
@@ -121,7 +128,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param dataCadastro the dataCadastro to set
+	 * @param dataCadastro
+	 *            the dataCadastro to set
 	 */
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
@@ -135,7 +143,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param estabelecimentoController the estabelecimentoController to set
+	 * @param estabelecimentoController
+	 *            the estabelecimentoController to set
 	 */
 	public void setEstabelecimentoController(EstabelecimentoController estabelecimentoController) {
 		this.estabelecimentoController = estabelecimentoController;
@@ -149,7 +158,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param listaEstabelecimento the listaEstabelecimento to set
+	 * @param listaEstabelecimento
+	 *            the listaEstabelecimento to set
 	 */
 	public void setListaEstabelecimento(List<Estabelecimento> listaEstabelecimento) {
 		this.listaEstabelecimento = listaEstabelecimento;
@@ -170,7 +180,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param estabelecimento the estabelecimento to set
+	 * @param estabelecimento
+	 *            the estabelecimento to set
 	 */
 	public void setEstabelecimento(Estabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
@@ -184,7 +195,8 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param listaCardapio the listaCardapio to set
+	 * @param listaCardapio
+	 *            the listaCardapio to set
 	 */
 	public void setListaCardapio(List<Cardapio> listaCardapio) {
 		this.listaCardapio = listaCardapio;
@@ -198,13 +210,11 @@ public class EstabelecimentoBean implements Serializable {
 	}
 
 	/**
-	 * @param cardapioBean the cardapioBean to set
+	 * @param cardapioBean
+	 *            the cardapioBean to set
 	 */
 	public void setCardapioBean(CardapioBean cardapioBean) {
 		this.cardapioBean = cardapioBean;
 	}
-
-	
-	
 
 }

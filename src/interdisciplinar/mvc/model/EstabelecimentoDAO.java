@@ -61,65 +61,70 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 
 	@Override
 	public List<Estabelecimento> listarEstabelecimento() {
-		System.out.println("Antes de gerar a lista");
+		// System.out.println("Antes de gerar a lista");
 		List<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
 
 		try {
-			System.out.println("Connecta dentro do listarEstabelecimento");
+			// System.out.println("Connecta dentro do listarEstabelecimento");
 			connection = conn.connect();
-			System.out.println("Antes do preparedStatement");
-			preparedStatement = connection
-					.prepareStatement("select id_estabelecimento, nome_estabelecimento, id_usuario, "
-							+ "data_cadastro, endereco, telefone, dados_complementares, tipo_estabelecimento FROM estabelecimento");
-			System.out.println("antes do executeQuery");
+			// System.out.println("Antes do preparedStatement");
+			String sql = "select id_estabelecimento, nome_estabelecimento, id_usuario, "
+					+ "data_cadastro, endereco, telefone, dados_complementares, tipo_estabelecimento, nome_tipo_estab "
+					+ "FROM estabelecimento "
+					+ "inner join tipo_estabelecimento "
+					+ "        on id_tipo_estab = tipo_estabelecimento";
+			System.out.println(sql);
+			preparedStatement = connection.prepareStatement(sql);
+			// System.out.println("antes do executeQuery");
 			resultSet = preparedStatement.executeQuery();
-			System.out.println("Antes do if");
-			if (resultSet.next()==true) {
-				System.out.println("Entrou no if");
-				do {
-					System.out.println("Entrou no DO");
-					Estabelecimento e;
+			// System.out.println("Antes do if");
 
-					System.out.println("Criou estabelecimento E");
-					
-					int id = resultSet.getInt("id_estabelecimento");
-					String nome = resultSet.getString("nome_estabelecimento");
-					int idUsuario = resultSet.getInt("id_usuario");
-					Date dataCadastro = resultSet.getDate("data_cadastro");
-					String endereco = resultSet.getString("endereco");
-					String telefone = resultSet.getString("telefone");
-					String dadosComplementares = resultSet.getString("dados_complementares");
-					int tipoEstabelecimento = resultSet.getInt("tipo_estabelecimento");
+			while (resultSet.next()) {
+				// System.out.println("Entrou no DO");
+				Estabelecimento e;
 
-					System.out.println("Gerou os campos a pártir do resultSet.get");
-					e = new Estabelecimento();
-					System.out.println("Instanciou estabelecimento");
+				// System.out.println("Criou estabelecimento E");
+				System.out.println("vendo id " + resultSet.getInt("id_estabelecimento"));
 
-					e.setIdEstabelecimento(id);
-					e.setNomeEstabelecimento(nome);
-					e.setIdUserEstabelecimento(idUsuario);
-					e.setDataCadastro(dataCadastro);
-					e.setEndereco(endereco);
-					e.setTelefone(telefone);
-					e.setDadosComplementares(dadosComplementares);
-					e.setTipoEstabelecimento(tipoEstabelecimento);
-					
-					e.setNomeTipoEstabelecimento(this.nomeTipo(tipoEstabelecimento));
-					
-					System.out.println("Atribuiu valores aos campos do objeto");
+				int id = resultSet.getInt("id_estabelecimento");
+				String nome = resultSet.getString("nome_estabelecimento");
+				int idUsuario = resultSet.getInt("id_usuario");
+				Date dataCadastro = resultSet.getDate("data_cadastro");
+				String endereco = resultSet.getString("endereco");
+				String telefone = resultSet.getString("telefone");
+				String dadosComplementares = resultSet.getString("dados_complementares");
+				int tipoEstabelecimento = resultSet.getInt("tipo_estabelecimento");
 
-					listaEstabelecimento.add(e);
-					System.out.println("incluiu o objeto e na lista de Estabelecimentos");
-				} while (resultSet.next()==true);
-			}else {
-				System.out.println("Sem nenhum next");
+				// System.out.println("Gerou os campos a pártir do resultSet.get");
+				e = new Estabelecimento();
+				// System.out.println("Instanciou estabelecimento");
+
+				e.setIdEstabelecimento(id);
+				e.setNomeEstabelecimento(nome);
+				e.setIdUserEstabelecimento(idUsuario);
+				e.setDataCadastro(dataCadastro);
+				e.setEndereco(endereco);
+				e.setTelefone(telefone);
+				e.setDadosComplementares(dadosComplementares);
+				e.setTipoEstabelecimento(tipoEstabelecimento);
+
+				e.setNomeTipoEstabelecimento(resultSet.getString("nome_tipo_estab"));
+				//e.setNomeTipoEstabelecimento(this.nomeTipo(tipoEstabelecimento));
+
+				// System.out.println("Atribuiu valores aos campos do objeto");
+
+				listaEstabelecimento.add(e);
+
+				// System.out.println("incluiu o objeto e na lista de Estabelecimentos");
 			}
 			return listaEstabelecimento;
 
 		} catch (SQLException ex) {
+			System.out.println("Exception!!");
 			ex.printStackTrace();
 			return null;
 		} finally {
+			System.out.println("DESCONECTOU");
 			conn.disconnect();
 		}
 	}
@@ -220,7 +225,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 			ex.printStackTrace();
 			System.out.println("caiu no catch");
 			return null;
-		} 
+		}
 	}
 
 	@Override
@@ -235,7 +240,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 
 	@Override
 	public String nomeTipo(int tipo) {
-		//connection = conn.connect();
+		// connection = conn.connect();
 		try {
 			String nomeTipo = null;
 			preparedStatement = connection
@@ -252,7 +257,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		} 
+		}
 	}
 
 }
