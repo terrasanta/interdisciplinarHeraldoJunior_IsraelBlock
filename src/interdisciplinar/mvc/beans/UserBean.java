@@ -26,6 +26,9 @@ public class UserBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 113696497773798798L;
+	
+	private User user;
+	
 	private int idUsuario;
 	private String nomeUsuario;
 	private String emailUsuario;
@@ -38,7 +41,13 @@ public class UserBean implements Serializable{
 	 * 
 	 */
 	public UserBean() {
-		// TODO Auto-generated constructor stub
+		userController = new UserController();
+		user = new User();
+	}
+	public String retornaNomeUsuario() {
+		user = userController.pesquisar(1);
+		String nomeUsuario = user.getNomeUsuario();
+		return nomeUsuario;
 	}
 	/**
 	 * @return the idUsuario

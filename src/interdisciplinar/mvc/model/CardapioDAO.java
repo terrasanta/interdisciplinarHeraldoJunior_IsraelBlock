@@ -119,7 +119,40 @@ public class CardapioDAO implements ICardapioDAO {
 
 	@Override
 	public Cardapio buscar(int idCardapio, int idEstabelecimento) {
-		return null;
+		Cardapio c = null;
+		try {
+			connection = conn.connect();
+			
+			preparedStatement = connection.prepareStatement("select nome_produto, descricao_produto, "
+					+ "valor_produto, tipo_produto FROM cardapio_estabelecimento where id_estab = ? and id_cardapio_estab = ?");
+			
+			preparedStatement.setInt(1, idEstabelecimento);
+			preparedStatement.setInt(2, idCardapio);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				String nome = resultSet.getString("nome_produto");
+				String descricao = resultSet.getString("descricao_produto");
+				Double valor = resultSet.getDouble("valor_produto");
+				int tipoProduto = resultSet.getInt("tipo_produto");
+				
+				c = new Cardapio();
+				
+				c.setNomeProduto(nome);
+				c.setDescricaoProduto(descricao);
+				c.setTipoProduto(tipoProduto);
+				c.setValorProduto(valor);
+				c.setIdEstabelecimento(idEstabelecimento);
+			}
+			
+			return c;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

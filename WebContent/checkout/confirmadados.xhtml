@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,48 +9,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<meta charset="UTF-8" />
 <h:head>
-	<title>Garçom online</title>
+	<title>GarÃ§om online</title>
 </h:head>
 <h:body>
-	<ui:composition template="/_layout.xhtml">
-		<ui:define name="content">
-			<h:form>
-
-				<h2>
-					<h:outputText value="#{estabelecimentoBean.nomeEstabelecimento}" />
-				</h2>
-				<hr />
-				<h4>Cardapio</h4>
-				<h:dataTable value="#{cardapioBean.listaCardapio}" var="cardapio"
-					styleClass="table">
-					<h:column>
-						<f:facet name="header">Produto</f:facet>
-						<h:outputText value="#{cardapio.nomeProduto}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Valor</f:facet>
-						<h:outputText value="#{cardapio.valorProduto}">
-							<f:convertNumber type="currency" currencySymbol="R$" />
-						</h:outputText>
-					</h:column>
-					<h:column>
-						<h:commandLink
-							action="#{carrinhoBean.incluiItem(cardapio.idEstabelecimento, cardapio.idCardapio)}"
-							value="Incluir no carrinho" />
-					</h:column>
-
-				</h:dataTable>
-
-				<h:commandLink action="/index.xhtml" value="voltar" />
-			</h:form>
-		</ui:define>
-		<ui:define name="sidebar">
-			<h:form>
-				<div class="card">
+	<ui:composition template="/_layoutNoSide.xhtml">
+ 		<ui:define name="content">
+ 			<h:form>
+ 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Carrinho</h4>
-						<h:dataTable value="#{carrinhoBean.retornaList}" var="carrinho"
+						<h4 class="card-title">Checkout - Confirme seus produtos</h4>
+						<h:dataTable  value="#{carrinhoBean.retornaList}" var="carrinho"
 							styleClass="table">
 							<h:column>
 								<f:facet name="header">Produto</f:facet>
@@ -66,12 +35,6 @@
 								<f:facet name="header">Valor</f:facet>
 								<h:outputText value="#{carrinhoBean.buscaValorProduto(carrinho.idProduto, carrinho.idEstabelecimento, carrinho.qtdeproduto)}" />
 							</h:column>
-							<h:column>
-								<f:facet name="header">Retirar</f:facet>
-								<h:commandLink
-							action="#{carrinhoBean.retiraItem(carrinho.idEstabelecimento, carrinho.idProduto)}"
-							value="retirar" />
-							</h:column>
 						</h:dataTable>
 						<ul class="list-group list-flush">
 							<li class="list-group-item">Total: <h:outputText
@@ -80,16 +43,18 @@
 								</h:outputText>
 							</li>
 							<li class="list-group-item">
-								<h:commandButton action="#{carrinhoBean.confirmaDados()}" value="Finalizar pedido" styleClass="btn btn-success" />
+								<h:commandButton action="#{carrinhoBean.finalizarPedido()}" value="Finalizar pedido" styleClass="btn btn-success" />
 							</li>
 						</ul>
 					</div>
-				</div>
-
-
-			</h:form>
-		</ui:define>
-	</ui:composition>
-
-</h:body>
-</html>
+ 				</div>
+ 				<div class="card">
+ 					<div class="card-body">
+ 						<h:commandLink action="/index.xhtml" value="voltar" />
+ 					</div>
+ 				</div>
+ 			</h:form>
+ 		</ui:define>
+ 	</ui:composition>
+ </h:body>
+ </html>

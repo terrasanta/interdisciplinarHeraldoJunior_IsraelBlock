@@ -14,7 +14,9 @@
 		<div class="container-fluid">
 			<div class="container">
 				<nav class="navbar navbar-expand-lg navbar-light">
-					<a class="navbar-brand" href="#">Garçom Online</a>
+					<a class="navbar-brand"
+						href="/InterdisciplinarHeraldoJunior_IsraelBlock/index.xhtml">Garçom
+						Online</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -24,16 +26,28 @@
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
-							<li class="nav-item active"><a class="nav-link" href="#">Quem
+							
+						<!--<li class="nav-item active"><a class="nav-link" href="#">Quem
 									somos</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Restaurantes</a>
-							</li>
+							</li>-->
+						</ul>
+						<ul class="navbar-nav my-2 my-lg-0">
+							<h:form>
+								<li class="nav-item">Bem vindo <h:outputText
+										value="#{userBean.retornaNomeUsuario()}" />
+								</li>
+								<li class="nav-item">Total: <h:outputText
+										value="#{carrinhoBean.retornaTotal()}">
+										<f:convertNumber type="currency" currencySymbol="R$" />
+									</h:outputText>
+								</li>
+							</h:form>
 						</ul>
 					</div>
 				</nav>
 			</div>
 		</div>
-
 	</ui:composition>
 </body>
 </html>

@@ -36,9 +36,6 @@ public class EstabelecimentoModel {
 		return estabelecimentoDAO.pesquisar(nomeEstabelecimento);
 	}
 
-	public List<Estabelecimento> pesquisar(int tipoestabelecimento) {
-		return estabelecimentoDAO.pesquisar(tipoestabelecimento);
-	}
 	public String nomeTipo(int tipo) {
 		return estabelecimentoDAO.nomeTipo(tipo);
 	}

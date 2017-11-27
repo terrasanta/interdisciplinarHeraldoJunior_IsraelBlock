@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+
+import interdisciplinar.mvc.beans.UserBean;
 import interdisciplinar.mvc.util.Conn;
-import interdisciplinar.mvc.vo.Carrinho;
 import interdisciplinar.mvc.vo.Itens;
 
 public class CarrinhoDAO implements ICarrinhoDAO {
@@ -31,6 +33,9 @@ public class CarrinhoDAO implements ICarrinhoDAO {
 	private Connection connection = null;
 	
 	private List<Itens> listaItens;
+	
+	@ManagedProperty("#{userBean}")
+	private UserBean userBean;
 	
 	public CarrinhoDAO() {
 		conn = new Conn();
@@ -59,8 +64,16 @@ public class CarrinhoDAO implements ICarrinhoDAO {
 	}
 
 	@Override
-	public Boolean excluir(int idCarrinho) {
-		return null;
+	public Boolean excluir(Itens item) {
+		int idEstab = item.getIdEstabelecimento();
+		int idProd = item.getIdProduto();
+		for (Itens itens : listaItens) {
+			if ((itens.getIdEstabelecimento() == idEstab) && (itens.getIdProduto() == idProd)) {
+				listaItens.remove(item);
+				System.out.println("removeu item");
+			}
+		}
+		return true;
 	}
 	
 	@Override
@@ -73,23 +86,53 @@ public class CarrinhoDAO implements ICarrinhoDAO {
 	}
 	
 	@Override
-	public Boolean finalizar(Carrinho carrinho) {
+	public Boolean finalizar() {
+		List<Itens> listaFinalizar = listaItens;
+		Double valorTotal = new Double(0.0);
+		for (Itens itens : listaFinalizar) {
+			valorTotal = valorTotal + (this.retornaValorItem(itens.getIdProduto(), itens.getIdEstabelecimento())*itens.getQtdeproduto());
+		}
+		int userId = 1;
 		try {
 			connection = conn.connect();
+			System.out.println("insert into carrinho (idcarrinho, idusuario, valortotal) values (seq_carrinho.nextval, "+userId+","+valorTotal+")");
 			preparedStatement = connection.prepareStatement("insert into carrinho"
-					+ "(idcarrinho, idusuario, idestabelecimento, valortotal) "
+					+ "(idcarrinho, idusuario, valortotal) "
 					+ "values "
-					+ "(seq_carrinho.nextval, ?, ?, ?)");
-			preparedStatement.setInt(1, carrinho.getIdCarrinho());
-			preparedStatement.setInt(2, carrinho.getIdUsuario());
-			preparedStatement.setInt(3, carrinho.getIdEstabelecimento());
-			preparedStatement.setDouble(4, carrinho.getValorTotal());
+					+ "(seq_carrinho.nextval, ?, ?)");
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setDouble(2, valorTotal);
 			
 			preparedStatement.executeUpdate();
 			
+			preparedStatement = connection.prepareStatement("select idcarrinho from carrinho where rownum <= 1 order by idcarrinho desc");
+			ResultSet rs = preparedStatement.executeQuery();
+			int id = 0;
+			if(rs.next()){
+				id = rs.getInt("idcarrinho");
+			}
+			for (Itens itens : listaFinalizar) {
+				try {
+					System.out.println("insert into itenspedido (iditem, idcarrinho, idestabelecimento, idproduto, qtdeproduto) values (seq_itenspedido.nextval, "+id+", "+itens.getIdEstabelecimento()+", "+itens.getIdProduto()+", "+itens.getQtdeproduto()+")");
+					preparedStatement = connection.prepareStatement("insert into itenspedido"
+							+ "(iditem, idcarrinho, idestabelecimento, idproduto, qtdeproduto) "
+							+ "values "
+							+ "(seq_itenspedido.nextval, ?, ?, ?, ?)");
+					preparedStatement.setInt(1, id);
+					preparedStatement.setInt(2, itens.getIdEstabelecimento());
+					preparedStatement.setInt(3, itens.getIdProduto());
+					preparedStatement.setInt(4, itens.getQtdeproduto());
+					preparedStatement.executeUpdate();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+					return false;
+				}
+			}
+			
+			
 			if (preparedStatement != null)
 				preparedStatement.close();
-			
+			listaItens = null;
 			return true;
 			
 		} catch (SQLException e) {

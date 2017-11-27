@@ -1,12 +1,15 @@
 package interdisciplinar.mvc.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import interdisciplinar.mvc.controller.EstabelecimentoController;
 import interdisciplinar.mvc.vo.Cardapio;
@@ -45,30 +48,35 @@ public class EstabelecimentoBean implements Serializable {
 
 	public String carregaEstabelecimento(int idEstabelecimento) {
 		Estabelecimento estabelecimento = new Estabelecimento();
-		System.out.println("passou aqui");
 		if (idEstabelecimento == 0) {
-			System.out.println("Não trouxe nada");
 			return "/index";
 		} else {
-			System.out.println("Dentro do Else - ID estabelecimento = " + idEstabelecimento);
 			estabelecimento = estabelecimentoController.buscar(idEstabelecimento);
 			setIdEstabelecimento(idEstabelecimento);
 			setNomeEstabelecimento(estabelecimento.getNomeEstabelecimento());
 			setDataCadastro(estabelecimento.getDataCadastro());
 			setTipoEstabelecimento(estabelecimentoController.nomeTipo(estabelecimento.getTipoEstabelecimento()));
-			System.out.println("ANTES DE CHAMAR O BEAN CARDAPIO");
 			listaCardapio = cardapioBean.carregaCardapio(idEstabelecimento);
-			System.out.println("DEPOIS DE CHAMAR O BEAN CARDAPIO");
 			for (Cardapio cardapio : listaCardapio) {
 				cardapioBean.setIdCardapio(cardapio.getIdCardapio());
 				cardapioBean.setNomeProduto(cardapio.getNomeProduto());
 				cardapioBean.setValorProduto(cardapio.getValorProduto());
 			}
-			System.out.println("DEPOIS DO FOR");
 		}
-		System.out.println("indo pra detalhes");
-
 		return "/estabelecimentos/detalhesEstabelecimento";
+	}
+	public String pesquisar() {
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		setEstabelecimentoController(new EstabelecimentoController());
+		listaEstabelecimento = new ArrayList<Estabelecimento>();
+
+		if (this.nomeEstabelecimento == null) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nome não pode ser nulo.", null));
+			return "/index.html";
+		} else {
+			listaEstabelecimento = estabelecimentoController.pesquisar(nomeEstabelecimento);
+			return "/pesquisa/resultado";
+		}
 	}
 
 	/**

@@ -26,8 +26,6 @@ public interface IEstabelecimentoDAO {
 
 	public List<Estabelecimento> pesquisar(String nomeEstabelecimento);
 	
-	public List<Estabelecimento> pesquisar(int tipoestabelecimento);
-	
 	public String nomeTipo(int tipo);
 	
 }

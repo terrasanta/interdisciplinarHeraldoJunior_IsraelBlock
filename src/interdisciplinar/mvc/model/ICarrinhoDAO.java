@@ -5,7 +5,6 @@ package interdisciplinar.mvc.model;
 
 import java.util.List;
 
-import interdisciplinar.mvc.vo.Carrinho;
 import interdisciplinar.mvc.vo.Itens;
 
 /**
@@ -18,10 +17,10 @@ public interface ICarrinhoDAO {
 	
 	public Boolean atualizar(Itens item);
 	
-	public Boolean excluir(int idCarrinho);
+	public Boolean excluir(Itens item);
 	
 	public List<Itens> listarCarrinho(int idUsuario);
 	
-	public Boolean finalizar(Carrinho carrinho);
+	public Boolean finalizar();
 	
 }

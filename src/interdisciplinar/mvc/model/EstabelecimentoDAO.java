@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import interdisciplinar.mvc.controller.EstabelecimentoController;
 import interdisciplinar.mvc.util.Conn;
 import interdisciplinar.mvc.vo.Estabelecimento;
 
@@ -24,6 +25,25 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	private Connection connection = null;
+	private EstabelecimentoController estabelecimentoController;
+	private List<Estabelecimento> listaEstabelecimento;
+
+	private String nomeEstabelecimento;
+
+	/**
+	 * @return the nomeEstabelecimento
+	 */
+	public String getNomeEstabelecimento() {
+		return nomeEstabelecimento;
+	}
+
+	/**
+	 * @param nomeEstabelecimento
+	 *            the nomeEstabelecimento to set
+	 */
+	public void setNomeEstabelecimento(String nomeEstabelecimento) {
+		this.nomeEstabelecimento = nomeEstabelecimento;
+	}
 
 	public EstabelecimentoDAO() {
 		conn = new Conn();
@@ -62,7 +82,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 	@Override
 	public List<Estabelecimento> listarEstabelecimento() {
 		// System.out.println("Antes de gerar a lista");
-		List<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
+		listaEstabelecimento = new ArrayList<Estabelecimento>();
 
 		try {
 			// System.out.println("Connecta dentro do listarEstabelecimento");
@@ -70,8 +90,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 			// System.out.println("Antes do preparedStatement");
 			String sql = "select id_estabelecimento, nome_estabelecimento, id_usuario, "
 					+ "data_cadastro, endereco, telefone, dados_complementares, tipo_estabelecimento, nome_tipo_estab "
-					+ "FROM estabelecimento "
-					+ "inner join tipo_estabelecimento "
+					+ "FROM estabelecimento " + "inner join tipo_estabelecimento "
 					+ "        on id_tipo_estab = tipo_estabelecimento";
 			System.out.println(sql);
 			preparedStatement = connection.prepareStatement(sql);
@@ -109,7 +128,7 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 				e.setTipoEstabelecimento(tipoEstabelecimento);
 
 				e.setNomeTipoEstabelecimento(resultSet.getString("nome_tipo_estab"));
-				//e.setNomeTipoEstabelecimento(this.nomeTipo(tipoEstabelecimento));
+				// e.setNomeTipoEstabelecimento(this.nomeTipo(tipoEstabelecimento));
 
 				// System.out.println("Atribuiu valores aos campos do objeto");
 
@@ -230,12 +249,46 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 
 	@Override
 	public List<Estabelecimento> pesquisar(String nomeEstabelecimento) {
-		return null;
-	}
+		Estabelecimento e = null;
+		try {
+			connection = conn.connect();
 
-	@Override
-	public List<Estabelecimento> pesquisar(int tipoestabelecimento) {
-		return null;
+			preparedStatement = connection
+					.prepareStatement("select id_estabelecimento, nome_estabelecimento, id_usuario, "
+							+ "data_cadastro, endereco, telefone, dados_complementares, tipo_estabelecimento FROM estabelecimento where nome_estabelecimento like ?");
+			preparedStatement.setString(1, '%' + nomeEstabelecimento + '%');
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				int id = resultSet.getInt("id_estabelecimento");
+				String nome = resultSet.getString("nome_estabelecimento");
+				int idUsuario = resultSet.getInt("id_usuario");
+				Date dataCadastro = resultSet.getDate("data_cadastro");
+				String endereco = resultSet.getString("endereco");
+				String telefone = resultSet.getString("telefone");
+				String dadosComplementares = resultSet.getString("dados_complementares");
+				int tipoEstabelecimento = resultSet.getInt("tipo_estabelecimento");
+
+				e = new Estabelecimento();
+
+				e.setIdEstabelecimento(id);
+				e.setNomeEstabelecimento(nome);
+				e.setIdUserEstabelecimento(idUsuario);
+				e.setDataCadastro(dataCadastro);
+				e.setEndereco(endereco);
+				e.setTelefone(telefone);
+				e.setDadosComplementares(dadosComplementares);
+				e.setTipoEstabelecimento(tipoEstabelecimento);
+
+				listaEstabelecimento.add(e);
+			}
+			
+			return listaEstabelecimento;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -258,6 +311,36 @@ public class EstabelecimentoDAO implements IEstabelecimentoDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * @return the estabelecimentoController
+	 */
+	public EstabelecimentoController getEstabelecimentoController() {
+		return estabelecimentoController;
+	}
+
+	/**
+	 * @param estabelecimentoController
+	 *            the estabelecimentoController to set
+	 */
+	public void setEstabelecimentoController(EstabelecimentoController estabelecimentoController) {
+		this.estabelecimentoController = estabelecimentoController;
+	}
+
+	/**
+	 * @return the listaEstabelecimento
+	 */
+	public List<Estabelecimento> getListaEstabelecimento() {
+		return listaEstabelecimento;
+	}
+
+	/**
+	 * @param listaEstabelecimento
+	 *            the listaEstabelecimento to set
+	 */
+	public void setListaEstabelecimento(List<Estabelecimento> listaEstabelecimento) {
+		this.listaEstabelecimento = listaEstabelecimento;
 	}
 
 }

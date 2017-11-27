@@ -40,10 +40,6 @@ public class EstabelecimentoController {
 		return estabelecimentoModel.pesquisar(nomeEstabelecimento);
 	}
 
-	public List<Estabelecimento> pesquisar(int tipoestabelecimento) {
-		return estabelecimentoModel.pesquisar(tipoestabelecimento);
-	}
-	
 	public String nomeTipo(int tipo) {
 		return estabelecimentoModel.nomeTipo(tipo);
 	}

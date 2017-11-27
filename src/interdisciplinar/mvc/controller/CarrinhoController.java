@@ -3,7 +3,6 @@ package interdisciplinar.mvc.controller;
 import java.util.List;
 
 import interdisciplinar.mvc.model.CarrinhoModel;
-import interdisciplinar.mvc.vo.Carrinho;
 import interdisciplinar.mvc.vo.Itens;
 
 public class CarrinhoController {
@@ -21,16 +20,16 @@ public class CarrinhoController {
 		return carrinhoModel.atualizar(item);
 	}
 	
-	public Boolean excluir(int idCarrinho) {
-		return carrinhoModel.excluir(idCarrinho);
+	public Boolean excluir(Itens item) {
+		return carrinhoModel.excluir(item);
 	}
 	
 	public List<Itens> listarCarrinho(int idUsuario){
 		return carrinhoModel.listarCarrinho(idUsuario);
 	}
 	
-	public Boolean finalizar(Carrinho carrinho) {
-		return carrinhoModel.finalizar(carrinho);
+	public Boolean finalizar() {
+		return carrinhoModel.finalizar();
 	}
 	public List<Itens> getListaItens() {
 		return carrinhoModel.getListaItens();
