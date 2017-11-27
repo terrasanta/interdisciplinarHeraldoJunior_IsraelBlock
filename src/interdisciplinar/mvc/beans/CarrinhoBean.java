@@ -112,12 +112,8 @@ public class CarrinhoBean implements Serializable {
 		List<Itens> listaAtual = carrinhoController.getListaItens();
 		Double valorTotal = new Double(0.0);
 		
-		if(listaAtual.isEmpty()) {
-			valorTotal = 0.0;
-		}else {
-			for (Itens itens : listaAtual) {
-				valorTotal = valorTotal + (carrinhoController.retornaValorItem(itens.getIdProduto(), itens.getIdEstabelecimento())*itens.getQtdeproduto());
-			}
+		for (Itens itens : listaAtual) {
+			valorTotal = valorTotal + (carrinhoController.retornaValorItem(itens.getIdProduto(), itens.getIdEstabelecimento())*itens.getQtdeproduto());
 		}
 		return valorTotal;
 	}
